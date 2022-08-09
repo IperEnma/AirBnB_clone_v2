@@ -125,13 +125,16 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[tokens[0]]()
         storage.save()
         if (len(tokens) > 1):
-            kwargs = {}
-            for count in range(1, len(tokens)):
-                key_value = tokens[count].split("=")
-                param = tokens[0] + " " + new_instance.id + " "
-                param = param + key_value[0] + " "
-                param = param + key_value[1]
-                HBNBCommand.do_update(self, param)
+            try:
+                kwargs = {}
+                for count in range(1, len(tokens)):
+                    key_value = tokens[count].split("=")
+                    param = tokens[0] + " " + new_instance.id + " "
+                    param = param + key_value[0] + " "
+                    param = param + key_value[1]
+                    HBNBCommand.do_update(self, param)
+            except Exception:
+                print("parameter error")
         print(new_instance.id)
         storage.save()
 
