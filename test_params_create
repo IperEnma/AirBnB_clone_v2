@@ -1,4 +1,4 @@
-create State name
+create State name="my_litle"
 create State name="Arizona"
 all State
 
