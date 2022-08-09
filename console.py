@@ -126,15 +126,25 @@ class HBNBCommand(cmd.Cmd):
         if (len(tokens) > 1):
             for count in range(1, len(tokens)):
                 key_value = tokens[count].split("=")
-                key_value[1] = key_value[1].replace('_', ' ')
-                key_value[1] = key_value[1][1:-1].replace('"', '\\"')
-                if (key_value[1].isdigit()):
-                    key_value[1] = int(key_value[1])
-                else:
+                op = 0
+                try:
+                    int(key_value[1])
+                    op = 1
+                except Exception:
+                    pass
+                if (op != 1):
                     try:
-                        key_value[1] = float(key_value[1])
+                        float(key_value[1])
+                        op = 2
                     except Exception:
-                        continue
+                        pass
+                if (op == 1):
+                    key_value[1] = int(key_value[1])
+                if (op == 2):
+                    key_value[1] = float(key_value[1])
+                if (op != 2 and op != 1):
+                    key_value[1] = key_value[1].replace('_', ' ')
+                    key_value[1] = key_value[1][1:-1].replace('"', '\\"')
                 setattr(new_instance, key_value[0], key_value[1])
         print(new_instance.id)
         storage.save()
