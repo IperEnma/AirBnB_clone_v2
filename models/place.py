@@ -50,9 +50,9 @@ class Place(BaseModel, Base):
         from models import storage
         from models.amenity import Amenity
         new_list = []
-        amenities = storage.all(Amenity)
+        amenities = storage.all(Amenity).values()
         for amenity in amenities:
-            if amenity.id in amenity_ids:
+            if amenity.id in self.amenity_ids:
                 new_list.append(amenity)
         return new_list
 

@@ -45,7 +45,7 @@ class DBStorage:
         new_dict = {}
         if cls is not None:
             for obj in self.__session.query(cls):
-                key = cls.__class.__.__name__ + obj.id
+                key = type(cls).__name__ + obj.id
                 new_dict[key] = obj
         else:
             for _cls in ['State', 'City', 'User', 'Place', 'Review']:
