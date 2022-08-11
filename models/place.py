@@ -10,8 +10,8 @@ from os import getenv
 
 
 place_amenity = Table('place_amenity', Base.metadata,
-            Column('place_id', String(60), ForeignKey('places.id')),
-            Column('amenity_id', String(60), ForeignKey('amenities.id'))
+            Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
+            Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
             )
 
 class Place(BaseModel, Base):
@@ -30,10 +30,10 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
 
-    if (getenv('HBNB_TYPE_STORAGE') == 'db'):
-        reviews = relationship("Review", backref="place", cascade="all, delete")
-        amenities = relationship("Amenity", secondary=place_amenity, viewonly=False, backref='places')
-    else:
+    reviews = relationship("Review", backref="place", cascade="all, delete")
+    amenities = relationship("Amenity", secondary=place_amenity, viewonly=False)
+
+    if (getenv('HBNB_TYPE_STORAGE') != 'db'):
         @property
         def reviews(self):
             new_list = []
