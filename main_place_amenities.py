@@ -3,8 +3,10 @@
 """
 from models import *
 from models.state import State
-from models.state import City
-
+from models.city import City
+from models.user import User
+from models.place import Place
+from models.amenity import Amenity
 # creation of a State
 state = State(name="California")
 state.save()
