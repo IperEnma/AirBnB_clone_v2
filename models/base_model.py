@@ -38,8 +38,6 @@ class BaseModel:
             except Exception:
                 pass
             self.__dict__.update(kwargs)
-            if (getenv('HBNB_TYPE_STORAGE') == 'db'):
-                self.save()
 
     def __str__(self):
         """Returns a string representation of the instance"""
