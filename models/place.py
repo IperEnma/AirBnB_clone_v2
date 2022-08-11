@@ -58,5 +58,5 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj=None):
             from models.amenity import Amenity
-            if type(obj) is Amenity:
+            if type(obj) == Amenity:
                 self.amenity_ids.append(obj.id)
