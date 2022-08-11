@@ -45,19 +45,19 @@ class Place(BaseModel, Base):
                     new_list.append(value)
             return new_list
 
-    @property
-    def amenities(self):
-        from models import storage
-        from models.amenity import Amenity
-        new_list = []
-        amenities = storage.all(Amenity).values()
-        for amenity in amenities:
-            if amenity.id in self.amenity_ids:
-                new_list.append(amenity)
-        return new_list
+        @property
+        def amenities(self):
+            from models import storage
+            from models.amenity import Amenity
+            new_list = []
+            amenities = storage.all(Amenity).values()
+            for amenity in amenities:
+                if amenity.id in self.amenity_ids:
+                    new_list.append(amenity)
+            return new_list
 
-    @amenities.setter
-    def amenities(self, obj=None):
-        from models.amenity import Amenity
-        if type(obj) is Amenity:
-            self.amenity_ids.append(obj.id)
+        @amenities.setter
+        def amenities(self, obj=None):
+            from models.amenity import Amenity
+            if type(obj) is Amenity:
+                self.amenity_ids.append(obj.id)
