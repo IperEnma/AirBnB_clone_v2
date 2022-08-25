@@ -44,8 +44,8 @@ def do_deploy(archive_path):
             run("mkdir -p /data/web_static/releases/{}".format(file[0]))
             run("sudo tar -xzf {}.{} -C /data/web_static/releases/{}".format(
                 file[0], file[1], file[0]))
-            run("sudo rm -f /{}.{}".format(file[0], file[1]))
-            run("sudo rm -f /data/web_static/current")
+            run("sudo rm -rf /{}.{}".format(file[0], file[1]))
+            run("sudo rm -rf /data/web_static/current")
             run("sudo cp -r /data/web_static/releases/{}/web_static/*\
                 /data/web_static/releases/{}".format(file[0], file[0]))
             run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
