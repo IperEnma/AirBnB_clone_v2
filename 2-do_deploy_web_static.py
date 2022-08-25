@@ -34,9 +34,9 @@ def do_deploy(archive_path):
     if os.path.isfile(archive_path) is False:
         return False
 
-    if put(archive_path, "/tmp").succeeded is True:
+    if put(archive_path, "/tmp").succeeded is False:
         return False
-
+    return False
     file = os.path.basename(archive_path)
     file = file.split(".")
 
