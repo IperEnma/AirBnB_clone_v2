@@ -24,4 +24,4 @@ fi
 sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 sudo sed -i '/server_name _;/a location /hbnb_static/ { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
-sudo /etc/init.d/nginx start
+sudo /etc/init.d/nginx restart
