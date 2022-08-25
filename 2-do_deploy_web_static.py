@@ -32,12 +32,12 @@ def do_deploy(archive_path):
         file = file.split(".")
         run("mkdir -p /data/web_static/releases/{}".format(file[0]))
 
-        run("tar -xzf /tmp/{}.{} -C /data/web_static/releases".format(
-            file[0], file[1]))
+        run("tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
+            file[0], file[1], file[0]))
 
         run("rm -rf /tmp/{}.{}".format(file[0], file[1]))
 
-        source = "/data/web_static/releases/web_static "
+        source = "/data/web_static/releases/{}/web_static/* ".format(file[0])
         dest = "/data/web_static/releases/{}".format(file[0])
         run("cp -R " + source + dest)
 
