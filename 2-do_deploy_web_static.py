@@ -32,6 +32,8 @@ def do_deploy(archive_path):
         return False
     if not os.path.exists(archive_path):
         return False
+    if not os.path.isfile(archive_path):
+        return False
     upload = put(archive_path, "/tmp")
     if (upload.succeeded is not True):
         return False
