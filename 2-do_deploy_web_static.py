@@ -30,6 +30,8 @@ def do_deploy(archive_path):
     """function send file"""
     if archive_path is None:
         return False
+    if not path.exists(archive_path):
+        return False
     upload = put(archive_path, "/tmp")
     if (upload.succeeded is not True):
         return False
