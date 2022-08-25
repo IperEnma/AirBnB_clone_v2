@@ -40,25 +40,28 @@ def do_deploy(archive_path):
     file = os.path.basename(archive_path)
     file = file.split(".")
 
-    if run("mkdir -p /data/web_static/releases/{}".format(file[0])).succeeded is False:
+    if run("mkdir -p /data/web_static/\
+            releases/{}".format(file[0])).succeeded is False:
         return False
 
-    if run("tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
-        file[0], file[1], file[0])).succeeded is False:
+    if run("tar -xzf /tmp/{}.{} -C\
+            /data/web_static/releases/{}".format(
+                file[0], file[1], file[0])).succeeded is False:
         return False
 
     if run("rm -rf /tmp/{}.{}".format(file[0], file[1])).succeeded is False:
         return False
 
     if run("cp -r /data/web_static/releases/{}/web_static/*\
-            /data/web_static/releases/{}".format(file[0], file[0])).succeeded is False:
+            /data/web_static/releases/\
+            {}".format(file[0], file[0])).succeeded is False:
         return False
 
     if run("rm -rf /data/web_static/current").succeeded is False:
         return False
 
-    if run("rm -rf /data/web_static/releases/{}/web_static".format(
-        file[0])).succeeded is False:
+    if run("rm -rf /data/web_static/releases/{}/\
+            web_static".format(file[0])).succeeded is False:
         return False
 
     if run("ln -s /data/web_static/releases/{}/\
