@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 def do_pack():
+    """function compress file"""
     try:
         date = datetime.utcnow().strftime('%Y%m%d%H%M%S')
         local("sudo mkdir -p versions")
