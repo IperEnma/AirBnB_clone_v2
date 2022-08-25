@@ -38,7 +38,6 @@ def do_deploy(archive_path):
         return False
     file = os.path.basename(archive_path)
     file = file.split(".")
-    return False
     if run("mkdir -p /data/web_static/\
             releases/{}".format(file[0])).succeeded is False:
         return False
@@ -66,4 +65,4 @@ def do_deploy(archive_path):
     if run("ln -s /data/web_static/releases/{}/\
             /data/web_static/current".format(file[0])).succeeded is False:
         return False
-    return True
+    return False
