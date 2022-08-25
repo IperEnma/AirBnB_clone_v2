@@ -13,8 +13,13 @@ if [[ -e $file ]]
 then
         :
 else
-        sudo touch $file
-        sudo echo "Hello World" | sudo tee $file
+        sudo echo "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" | sudo tee $file
 fi
 sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
