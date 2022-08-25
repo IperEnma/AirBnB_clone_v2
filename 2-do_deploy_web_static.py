@@ -14,29 +14,41 @@ def do_deploy(archive_path):
     """function send file"""
     if archive_path is None:
         return False
+
     if not os.path.exists(archive_path):
         return False
+
     if os.path.isfile(archive_path) is False:
         return False
-    upload = put(archive_path, "/tmp")
-    if (upload.succeeded is False):
+
+    if put(archive_path, "/tmp").succeeded is False:
         return False
+
     file = os.path.basename(archive_path)
-    try:
-        with cd("/tmp"):
-            file = file.split(".")
-            run("mkdir -p /data/web_static/releases/{}".format(file[0]))
-            run("sudo tar -xzf {}.{} -C /data/web_static/releases/{}".format(
-                file[0], file[1], file[0]))
-            run("sudo rm -rf {}.{}".format(file[0], file[1]))
-            run("sudo rm -rf /data/web_static/current")
-            run("sudo cp -r /data/web_static/releases/{}/web_static/*\
-                /data/web_static/releases/{}".format(file[0], file[0]))
-            run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
-                    file[0]))
-            run("sudo ln -s /data/web_static/releases/{}/\
-                /data/web_static/current".format(file[0]))
-    except Exception:
+    file = file.split(".")
+
+    if run("mkdir -p /data/web_static/releases/{}".format(file[0])).succeeded is False:
         return False
-    print("New version deployed!")
+
+    if run("sudo tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
+        file[0], file[1], file[0])).succeeded is False:
+        return False
+
+    if run("sudo rm -rf /tmp/{}.{}".format(file[0], file[1])).succeeded is False:
+        return False
+
+    if run("sudo rm -rf /data/web_static/current").succeeded is False:
+        return False
+
+    if run("sudo cp -r /data/web_static/releases/{}/web_static/*\
+            /data/web_static/releases/{}".format(file[0], file[0])).succeeded is False:
+        return False
+
+    if run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
+        file[0])).succeeded is False:
+        return False
+
+    if run("sudo ln -s /data/web_static/releases/{}/\
+            /data/web_static/current".format(file[0])).succeeded is False:
+        return False
     return True
