@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """module that compress using fabric"""
 
-from fabric.api import *
+from fabric.api import local
 from datetime import datetime
 
 def do_pack():
