@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 #sets up your web servers
 
-package=$(dpkg -s nginx 2> /dev/null | grep nginx | head -1 | cut -d " " -f2 2> /dev/null)
-if [ "$package" = "nginx" ]
-then
-        :
-else
-        sudo apt update -y
-        sudo apt install -y nginx
-fi
+sudo apt update -y
+sudo apt install -y nginx
 sudo /etc/init.d/nginx stop
 sudo mkdir -p /data/web_static/
 sudo mkdir -p /data/web_static/releases/
