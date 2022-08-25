@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """module that compress using fabric"""
 
-from fabric.operations import run, put
-from fabric.api import *
+from fabric.api import run, put, env
 import os
 
 
@@ -53,7 +52,7 @@ def do_deploy(archive_path):
 
     source = "/data/web_static/releases/{}/web_static/*".format(file[0])
     dest = "/data/web_static/releases/{}".format(file[0])
-    if run("mv " + source + " " + dest).succeeded is False:
+    if run("cp -R " + source + " " + dest).succeeded is False:
         return False
 
     if run("rm -rf /data/web_static/current").succeeded is False:
