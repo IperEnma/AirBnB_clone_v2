@@ -2,25 +2,12 @@
 """module that compress using fabric"""
 
 from fabric.api import *
-from datetime import datetime
 import os
 
 
 env.hosts = ["34.201.143.161", "35.175.196.152"]
 env.user = "ubuntu"
 env.key_filename = "~/.ssh/school"
-
-
-def do_pack():
-    """function compress file"""
-    try:
-        date = datetime.utcnow().strftime('%Y%m%d%H%M%S')
-        local("sudo mkdir -p versions")
-        local("sudo tar -cvzf versions/web_static_{}.tgz web_static".format(
-            date))
-        return "versions/web_static_{}.tgz web_static".format(date)
-    except Exception:
-        return None
 
 
 def do_deploy(archive_path):
