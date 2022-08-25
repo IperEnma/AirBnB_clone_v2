@@ -10,12 +10,24 @@ env.user = "ubuntu"
 env.key_filename = "~/.ssh/school"
 
 
+def do_pack():
+    """function compress file"""
+    try:
+        date = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+        local("sudo mkdir -p versions")
+        local("sudo tar -cvzf versions/web_static_{}.tgz web_static".format(
+            date))
+        return "versions/web_static_{}.tgz web_static".format(date)
+    except Exception:
+        return None
+
+
 def do_deploy(archive_path):
     """function send file"""
     if archive_path is None:
         return False
 
-    if not os.path.exists(archive_path):
+    if os.path.exists(archive_path) is False:
         return False
 
     if os.path.isfile(archive_path) is False:
@@ -37,11 +49,11 @@ def do_deploy(archive_path):
     if run("sudo rm -rf /tmp/{}.{}".format(file[0], file[1])).succeeded is False:
         return False
 
-    if run("sudo rm -rf /data/web_static/current").succeeded is False:
+    if run("sudo mv /data/web_static/releases/{}/web_static/*\
+            /data/web_static/releases/{}".format(file[0], file[0])).succeeded is False:
         return False
 
-    if run("sudo cp -r /data/web_static/releases/{}/web_static/*\
-            /data/web_static/releases/{}".format(file[0], file[0])).succeeded is False:
+    if run("sudo rm -rf /data/web_static/current").succeeded is False:
         return False
 
     if run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
