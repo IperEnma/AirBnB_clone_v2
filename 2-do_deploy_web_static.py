@@ -7,8 +7,6 @@ import os
 
 
 env.hosts = ["34.201.143.161", "35.175.196.152"]
-env.user = "ubuntu"
-env.key_filename = "~/.ssh/school"
 
 
 def do_pack():
@@ -34,6 +32,7 @@ def do_deploy(archive_path):
     with cd("/tmp"):
         try:
             file = file.split(".")
+            run("mkdir -p /data/web_static/releases/{}".format(file[0]))
             run("tar -xzf {}.{} -C /data/web_static/releases".format(
                 file[0], file[1]))
             run("rm -f {}.{}".format(file[0], file[1]))
