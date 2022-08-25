@@ -43,7 +43,7 @@ def do_deploy(archive_path):
             dest = "/data/web_static/releases/{}".format(file[0])
             run("cp -R " + source + dest)
 
-            run("rm -rf /data/web_static/releases/{}/web_static".format(file[0])
+            run("rm -rf /data/web_static/releases/{}/web_static".format(file[0]))
 
             run("rm -f /data/web_static/current")
 
