@@ -36,10 +36,9 @@ def do_deploy(archive_path):
 
     if put(archive_path, "/tmp").succeeded is False:
         return False
-    return False
     file = os.path.basename(archive_path)
     file = file.split(".")
-
+    return False
     if run("mkdir -p /data/web_static/\
             releases/{}".format(file[0])).succeeded is False:
         return False
