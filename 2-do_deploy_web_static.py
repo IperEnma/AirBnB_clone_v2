@@ -22,6 +22,8 @@ def do_pack():
 
 def do_deploy(archive_path):
     """function send file"""
+
+    r = True
     if archive_path is None:
         return False
 
@@ -32,9 +34,8 @@ def do_deploy(archive_path):
         return False
 
     if put(archive_path, "/tmp").succeeded is False:
-        return False
+        r = False
 
-    r = True
     file = os.path.basename(archive_path)
     file = file.split(".")
 
