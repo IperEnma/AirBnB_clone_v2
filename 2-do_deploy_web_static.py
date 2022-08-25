@@ -6,8 +6,6 @@ import os
 
 
 env.hosts = ["34.201.143.161", "35.175.196.152"]
-env.user = "ubuntu"
-env.key_filename = "~/.ssh/school"
 
 
 def do_pack():
