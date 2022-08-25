@@ -32,15 +32,17 @@ def do_deploy(archive_path):
         return False
     upload = put(archive_path, "/tmp")
     file = os.path.basename(archive_path)
-    print(file)
     with cd("/tmp"):
-        file = file.split(".")
-        run("tar -xvf {}.{} -C /data/web_static/releases".format(
-            file[0], file[1]))
-        run("rm -f {}.{}".format(file[0], file[1]))
-        run("rm -f /data/web_static/current")
-        run("mv /data/web_static/releases/web_static\
+        try:
+            file = file.split(".")
+            run("tar -xvf {}.{} -C /data/web_static/releases".format(
+                file[0], file[1]))
+            run("rm -f {}.{}".format(file[0], file[1]))
+            run("rm -f /data/web_static/current")
+            run("mv /data/web_static/releases/web_static\
                 /data/web_static/releases/{}".format(file[0]))
-        run("ln -s -f /data/web_static/releases/{}/\
+            run("ln -s -f /data/web_static/releases/{}/\
                 /data/web_static/current".format(file[0]))
-    print(upload.succeeded)
+        except:
+            return False
+    return True
