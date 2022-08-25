@@ -23,7 +23,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     """function send file"""
-    if not path.exists(archive_path) or not path.isfile(archive_path):
+    if not os.path.exists(archive_path) or not os.path.isfile(archive_path):
         return False
 
     file = os.path.basename(archive_path)
