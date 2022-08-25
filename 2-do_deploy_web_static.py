@@ -46,9 +46,10 @@ def do_deploy(archive_path):
             run("sudo rm -f /data/web_static/current")
             run("sudo cp -r /data/web_static/releases/{}/web_static/*\
                 /data/web_static/releases/{}".format(file[0], file[0]))
-            run("sudo rm -rf /data/web_static/releases/{}/web_static".format(file[0]))
+            run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
+                file[0]))
             run("sudo ln -s -f /data/web_static/releases/{}/\
                 /data/web_static/current".format(file[0]))
-        except:
+        except Exception:
             return False
     return True
