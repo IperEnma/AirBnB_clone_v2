@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """module that compress using fabric"""
 
-from fabric.api import run, put, env
+from fabric.api import *
 from datetime import datetime
 import os
 
 
 env.hosts = ["34.201.143.161", "35.175.196.152"]
-env.user=argv="ubuntu"
-env.key_filename="~/.ssh/school"
+env.user = "ubuntu"
+env.key_filename = "~/.ssh/school"
 
 
 def do_pack():
@@ -29,16 +29,21 @@ def do_deploy(archive_path):
         return False
     stat = put(archive_path, "/tmp")
     file = os.path.basename(archive_path)
-    if(stat.succeeded is not True):
+    if (stat.succeeded is not True):
         return False
     with cd("/tmp"):
         try:
             file = file.split(".")
-            run("tar -xvf {}.{} -C /data/web_static/releases".format(file[0], file[1]))
+            run("tar -xzf {}.{} -C /data/web_static/releases".format(
+                file[0], file[1]))
             run("rm -f {}.{}".format(file[0], file[1]))
             run("rm -f /data/web_static/current")
-            run("mv /data/web_static/releases/web_static /data/web_static/releases/{}".format(file[0]))
-            run("ln -s -f /data/web_static/releases/{}/ /data/web_static/current".format(file[0]))
-        except:
+            source = "/data/web_static/releases/web_static "
+            dest = "/data/web_static/releases/{}".format(file[0])
+            run("mv " + source + dest)
+            source = "/data/web_static/releases/{}/ ".format(file[0])
+            dest = "/data/web_static/current"
+            run("ln -s " + source + dest)
+        except Exception:
             return False
     return True
