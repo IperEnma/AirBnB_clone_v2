@@ -50,7 +50,7 @@ def do_deploy(archive_path):
     if run("rm -rf /tmp/{}.{}".format(file[0], file[1])).succeeded is False:
         return False
 
-    if run("sudo cp -r /data/web_static/releases/{}/web_static/*\
+    if run("mv /data/web_static/releases/{}/web_static/*\
             /data/web_static/releases/{}".format(file[0], file[0])).succeeded is False:
         return False
 
