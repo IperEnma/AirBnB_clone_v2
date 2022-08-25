@@ -36,34 +36,35 @@ def do_deploy(archive_path):
     if put(archive_path, "/tmp").succeeded is False:
         return False
 
+    r = True
     file = os.path.basename(archive_path)
     file = file.split(".")
 
     mkdir = "mkdir -p /data/web_static/releases/{}".format(file[0])
     if run(mkdir).succeeded is False:
-        return False
+        r = False
 
     if run("tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
                 file[0], file[1], file[0])).succeeded is False:
-        return False
+        r = False
 
     if run("rm -rf /tmp/{}.{}".format(file[0], file[1])).succeeded is False:
-        return False
+        r = False
 
     source = "/data/web_static/releases/{}/web_static/*".format(file[0])
     dest = "/data/web_static/releases/{}".format(file[0])
     if run("cp -R " + source + " " + dest).succeeded is False:
-        return False
+        r = False
 
     if run("rm -rf /data/web_static/current").succeeded is False:
-        return False
+        r = False
 
     rm = "rm -rf /data/web_static/releases/{}/web_static".format(file[0])
     if run(rm).succeeded is False:
-        return False
+        r = False
 
     web = "/data/web_static/releases/{} ".format(file[0])
     symbolic = "/data/web_static/current".format(file[0])
     if run("ln -s " + web + symbolic).succeeded is False:
-        return False
-    return False
+        r = False
+    return r
