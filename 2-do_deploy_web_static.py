@@ -25,6 +25,8 @@ def do_deploy(archive_path):
     """function send file"""
     if archive_path is None:
         return False
+    if not path.exists(archive_path) or not path.isfile(archive_path):
+        return False
     stat = put(archive_path, "/tmp")
     file = os.path.basename(archive_path)
     if (stat.succeeded is not True):
