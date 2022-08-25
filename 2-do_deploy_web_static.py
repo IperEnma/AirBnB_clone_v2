@@ -10,6 +10,7 @@ env.hosts=["34.201.143.161", "35.175.196.152"]
 env.user=argv[7]
 env.key_filename=argv[5]
 def do_pack():
+    """function compress file"""
     try:
         date = datetime.utcnow().strftime('%Y%m%d%H%M%S')
         print("Packing web_static to versions/web_static_{}.tgz web_static".format(date))
@@ -19,6 +20,7 @@ def do_pack():
     except Exception:
         return None
 def do_deploy(archive_path):
+    """function send file"""
     if archive_path is None:
         return False
     upload = put(archive_path, "/tmp")
