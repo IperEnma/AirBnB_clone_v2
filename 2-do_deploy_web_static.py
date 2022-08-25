@@ -3,7 +3,6 @@
 
 from fabric.api import *
 from datetime import datetime
-from sys import argv
 import os
 
 
