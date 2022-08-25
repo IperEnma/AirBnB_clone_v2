@@ -19,7 +19,7 @@ def do_deploy(archive_path):
     if os.path.isfile(archive_path) is False:
         return False
     upload = put(archive_path, "/tmp")
-    if (upload.succeeded is not True):
+    if (upload.succeeded is False):
         return False
     file = os.path.basename(archive_path)
     try:
@@ -34,7 +34,7 @@ def do_deploy(archive_path):
                 /data/web_static/releases/{}".format(file[0], file[0]))
             run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
                     file[0]))
-            run("sudo ln -s -f /data/web_static/releases/{}/\
+            run("sudo ln -s /data/web_static/releases/{}/\
                 /data/web_static/current".format(file[0]))
     except Exception:
         return False
