@@ -41,7 +41,7 @@ def do_deploy(archive_path):
     try:
         file = file.split(".")
         run("mkdir -p /data/web_static/releases/{}".format(file[0]))
-        run("sudo tar -xvf {}.{} -C /data/web_static/releases/{}".format(
+        run("sudo tar -xvf /tmp/{}.{} -C /data/web_static/releases/{}".format(
             file[0], file[1], file[0]))
         run("sudo rm -f /tmp/{}.{}".format(file[0], file[1]))
         run("sudo rm -f /data/web_static/current")
