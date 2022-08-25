@@ -26,10 +26,13 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path) or not os.path.isfile(archive_path):
         return False
 
-    file = os.path.basename(archive_path)
+    """file = os.path.basename(archive_path)"""
     try:
-        put(archive_path, "/tmp")
+        put(archive_path, "/tmp/")
+
+        file = archive_path.replace("versions/", "")
         file = file.split(".")
+
         run("mkdir -p /data/web_static/releases/{}".format(file[0]))
 
         run("tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
