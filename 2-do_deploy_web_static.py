@@ -30,25 +30,25 @@ def do_deploy(archive_path):
     try:
         put(archive_path, "/tmp")
         file = file.split(".")
-        run("mkdir -p /data/web_static/releases/{}".format(file[0]))
+        run("sudo mkdir -p /data/web_static/releases/{}".format(file[0]))
 
-        run("tar -xzf /tmp/{}.{} -C /data/web_static/releases".format(
+        run("sudo tar -xzf /tmp/{}.{} -C /data/web_static/releases".format(
             file[0], file[1]))
 
-        run("rm -rf /tmp/{}.{}".format(file[0], file[1]))
+        run("sudo rm -rf /tmp/{}.{}".format(file[0], file[1]))
 
         source = "/data/web_static/releases/web_static "
         dest = "/data/web_static/releases/{}".format(file[0])
-        run("cp -R " + source + dest)
+        run("sudo cp -R " + source + dest)
 
-        run("rm -rf /data/web_static/releases/{}/web_static".format(
+        run("sudo rm -rf /data/web_static/releases/{}/web_static".format(
             file[0]))
 
-        run("rm -f /data/web_static/current")
+        run("sudo rm -f /data/web_static/current")
 
         source = "/data/web_static/releases/{}/ ".format(file[0])
         dest = "/data/web_static/current"
-        run("ln -s " + source + dest)
+        run("sudo ln -s " + source + dest)
 
     except Exception:
         return False
