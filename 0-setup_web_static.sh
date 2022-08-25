@@ -10,8 +10,8 @@ else
         sudo chmod -R 777 /var/www/html
         sudo echo "Hello World" | sudo tee /var/www/html/index.html
         sudo /etc/init.d/nginx stop
-		string='/server_name _;/a rewrite ^/redirect_me https://https://www.youtube.com/watch?v=QH2-TGUlwu4/$1 permanent;'
-        sudo sed -i $string /etc/nginx/sites-available/default
+		string="/server_name _;/a rewrite ^/redirect_me https://https://www.youtube.com/watch?v=QH2-TGUlwu4/$1 permanent;"
+        sudo sed -i "$string" /etc/nginx/sites-available/default
         sudo echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom.html
         sudo sed -i '/server_name _;/a error_page 404 /custom.html;' /etc/nginx/sites-available/default
         var=$(cat /proc/sys/kernel/hostname)
