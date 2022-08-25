@@ -40,7 +40,7 @@ def do_deploy(archive_path):
             run("rm -f /data/web_static/current")
             source = "/data/web_static/releases/web_static "
             dest = "/data/web_static/releases/{}".format(file[0])
-            run("mv " + source + dest)
+            run("cp -R " + source + dest)
             source = "/data/web_static/releases/{}/ ".format(file[0])
             dest = "/data/web_static/current"
             run("ln -s " + source + dest)
