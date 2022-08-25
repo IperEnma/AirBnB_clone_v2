@@ -31,6 +31,8 @@ def do_deploy(archive_path):
     if archive_path is None:
         return False
     upload = put(archive_path, "/tmp")
+    if (upload.succeeded is not True):
+        return False
     file = os.path.basename(archive_path)
     with cd("/tmp"):
         try:
