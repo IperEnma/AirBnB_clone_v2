@@ -7,9 +7,12 @@ from sys import argv
 import os
 
 env.hosts=["34.201.143.161", "35.175.196.152"]
-env.user=argv[7]
-env.key_filename=argv[5]
+env.user=argv="ubuntu"
+env.key_filename="~/.ssh/school"
+
+
 def do_pack():
+    """funtion compress file"""
     try:
         date = datetime.utcnow().strftime('%Y%m%d%H%M%S')
         print("Packing web_static to versions/web_static_{}.tgz web_static".format(date))
@@ -18,7 +21,10 @@ def do_pack():
         return "versions/web_static_{}.tgz".format(date)
     except Exception:
         return None
+
+
 def do_deploy(archive_path):
+    """function send file"""
     if archive_path is None:
         return False
     stat = put(archive_path, "/tmp")
@@ -36,7 +42,10 @@ def do_deploy(archive_path):
         except:
             return False
     return True
+
+
 def deploy():
+    """function compress and send file"""
     path=do_pack()
     if path is None:
         return False
