@@ -9,18 +9,13 @@ sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 file="/data/web_static/releases/test/index.html"
-if [[ -e $file ]]
-then
-        :
-else
-        sudo echo "<html>
+sudo echo "<html>
   <head>
   </head>
   <body>
     Holberton School
   </body>
 </html>" | sudo tee $file
-fi
 sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 sudo sed -i '/server_name _;/a location /hbnb_static/ { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
