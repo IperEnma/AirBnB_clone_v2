@@ -1,5 +1,0 @@
-#!/bin/bash
-#comment
-sudo apt-get -y remove fabric
-sudo apt-get -y autoremove fabric
-sudo apt-get -y purge fabric
