@@ -26,30 +26,28 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path) or not os.path.isfile(archive_path):
         return False
 
-    """file = os.path.basename(archive_path)"""
+    file = os.path.basename(archive_path)
     try:
         put(archive_path, "/tmp/")
 
-        file = archive_path.replace("versions/", "")
         file = file.split(".")
 
-        run("mkdir -p /data/web_static/releases/{}".format(file[0]))
+        run("mkdir -p /data/web_static/releases/" + file[0]
 
-        run("tar -xzf /tmp/{}.{} -C /data/web_static/releases/{}".format(
-            file[0], file[1], file[0]))
+        run("tar -xzf /tmp/"+ file[0]+ "." + file[1] +
+            " -C" + "/data/web_static/releases/" + "file[0]")
 
-        run("rm -rf /tmp/{}.{}".format(file[0], file[1]))
+        run("rm -rf /tmp/" + file[0] + "." + file[1])
 
-        source = "/data/web_static/releases/{}/web_static/* ".format(file[0])
-        dest = "/data/web_static/releases/{}".format(file[0])
+        source = "/data/web_static/releases/" + file[0] + "/web_static/*"
+        dest = "/data/web_static/releases/" + file[0])
         run("cp -R " + source + dest)
 
-        run("rm -rf /data/web_static/releases/{}/web_static".format(
-            file[0]))
+        run("rm -rf /data/web_static/releases/" + file[0] + "/web_static")
 
         run("rm -f /data/web_static/current")
 
-        source = "/data/web_static/releases/{}/ ".format(file[0])
+        source = "/data/web_static/releases/" + file[0]
         dest = "/data/web_static/current"
         run("ln -s " + source + dest)
 
