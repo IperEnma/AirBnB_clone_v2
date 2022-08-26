@@ -48,7 +48,7 @@ def do_deploy(archive_path):
         run("rm -f /data/web_static/current")
 
         source = "/data/web_static/releases/" + file[0]
-        dest = "/data/web_static/current"
+        dest = " /data/web_static/current"
         run("ln -s " + source + dest)
 
     except Exception:
