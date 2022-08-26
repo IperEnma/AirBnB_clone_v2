@@ -32,15 +32,15 @@ def do_deploy(archive_path):
 
         file = file.split(".")
 
-        run("mkdir -p /data/web_static/releases/" + file[0]
+        run("mkdir -p /data/web_static/releases/" + file[0])
 
-        run("tar -xzf /tmp/"+ file[0]+ "." + file[1] +
-            " -C" + "/data/web_static/releases/" + "file[0]")
+        run("tar -xzf /tmp/" + file[0] + "." + file[1] +
+            " -C " + "/data/web_static/releases/" + file[0])
 
         run("rm -rf /tmp/" + file[0] + "." + file[1])
 
-        source = "/data/web_static/releases/" + file[0] + "/web_static/*"
-        dest = "/data/web_static/releases/" + file[0])
+        source = "/data/web_static/releases/" + file[0] + "/web_static/* "
+        dest = "/data/web_static/releases/" + file[0]
         run("cp -R " + source + dest)
 
         run("rm -rf /data/web_static/releases/" + file[0] + "/web_static")
