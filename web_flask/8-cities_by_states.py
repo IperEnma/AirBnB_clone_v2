@@ -13,11 +13,13 @@ app.url_map.strict_slashes = False
 
 @app.teardown_appcontext
 def close(exception):
+    """close current session"""
     storage.close()
 
 
 @app.route('/cities_by_states')
 def cities_by_states():
+    """return cities by states"""
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
         states = storage.all(State)
         states_list = []
