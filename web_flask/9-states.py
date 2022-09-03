@@ -17,20 +17,12 @@ def close(exception):
 
 
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<id>', strict_slashes=False)
-def states(id=None):
-    """return state by id or all states"""
+def states_id():
+    "without id"
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
-        states = storage.all(State)
-        states_list = []
-        if id is not None:
-            for key, state in states.items():
-                if state.id == id:
-                    return render_template("9-states.html", states=state)
-        else:
-            for key, state in states.items():
-                states_list.append(state)
-            states_list.sort(key=lambda x: x.name)
+        for key, state in states.items():
+            states_list.append(state)
+        states_list.sort(key=lambda x: x.name)
         return render_template(
                 "9-states.html",
                 states=states_list)
@@ -41,6 +33,19 @@ def states(id=None):
                 "9-states.html",
                 states=states,
                 cities=cities)
+
+
+@app.route('/states/<id>', strict_slashes=False)
+def states(id=None):
+    """return state by id or all states"""
+    if (getenv('HBNB_TYPE_STORAGE') == 'db'):
+        states = storage.all(State)
+        states_list = []
+        if id is not None:
+            for key, state in states.items():
+                if state.id == id:
+                    return render_template("9-states.html", states=state)
+        return render_template("9-states.html")
 
 
 if __name__ == '__main__':
