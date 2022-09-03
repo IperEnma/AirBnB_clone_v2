@@ -8,7 +8,6 @@ from os import getenv
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
@@ -17,8 +16,8 @@ def close(exception):
     storage.close()
 
 
-@app.route('/states')
-@app.route('/states/<id>')
+@app.route('/states', strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
 def states(id=None):
     """return state by id or all states"""
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
