@@ -5,7 +5,14 @@
     </HEAD>
     <BODY>
 		{% if  states | length > 0 %}
-			{% if name_state | length > 0 %}
+			{% if states is iterable %}
+				<H1>States</H1>
+				<UL>
+					{% for state in states %}
+						<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+					{% endfor %}
+				<UL>
+			{% else %}
 				<H1>State: {{ name_state }}</H1>
 				<H3>Cities:</H3>
 				<UL>
@@ -15,13 +22,6 @@
 					<LI>{{ city.id  }}: <B>{{ city.name }}</B></LI>
 					{% endfor %}
 				</UL>
-			{% else %}
-				<H1>States</H1>
-				<UL>
-					{% for state in states %}
-						<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
-					{% endfor %}
-				<UL>
 			{% endif %}
 		{% else %}
         	<H1>Not found!</H1>

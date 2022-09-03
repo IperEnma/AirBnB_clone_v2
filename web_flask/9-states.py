@@ -24,12 +24,10 @@ def states(id=None):
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
         states = storage.all(State)
         states_list = []
-        name_state = ""
         if id is not None:
             for key, state in states.items():
                 if state.id == id:
-                    states_list.append(state)
-                    name_state = state.name
+                    return render_template("9-states.html", states=states)
         else:
             for key, state in states.items():
                 states_list.append(state)
