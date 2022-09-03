@@ -20,6 +20,8 @@ def close(exception):
 def states_id():
     "without id"
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
+        states_list = []
+        states = storage.all(State)
         for key, state in states.items():
             states_list.append(state)
         states_list.sort(key=lambda x: x.name)
@@ -40,12 +42,18 @@ def states(id=None):
     """return state by id or all states"""
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
         states = storage.all(State)
-        states_list = []
         if id is not None:
             for key, state in states.items():
                 if state.id == id:
                     return render_template("9-states.html", states=state)
         return render_template("9-states.html")
+    else:
+        cities = storage.all(City)
+        states = storage.all(State)
+        return render_template(
+                "9-states.html",
+                states=states,
+                cities=cities)
 
 
 if __name__ == '__main__':
