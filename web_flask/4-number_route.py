@@ -12,31 +12,31 @@ def index():
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes = False)
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """send string to browser"""
     return 'HBNB'
 
 
-@app.route('/c/<text>', strict_slashes = False)
+@app.route('/c/<text>', strict_slashes=False)
 def c(var):
-    """send string to browser"""
+    """capture variable"""
     text = text.replace("_", " ")
     return var
 
 
-@app.route('/python', defaults={'text': "is_cool"}, strict_slashes = False)
-@app.route('/python/<text>', strict_slashes = False)
+@app.route('/python', defaults={'text': "is_cool"}, strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def python(text):
-    """send string to browser"""
+    """capture variable a set default"""
     text = text.replace("_", " ")
     return "Python {}".format(text)
 
 
-@appd.route('/number', strict_slashes = False)
-@app.route('/number/<int:n>', strict_slashes = False)
+@appd.route('/number', strict_slashes=False)
+@app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
-    """send string to browser"""
+    """is number or not"""
     return "{} is a number".format(n)
 
 if __name__ == '__main__':
