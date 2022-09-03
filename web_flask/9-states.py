@@ -46,7 +46,7 @@ def states(id=None):
             for key, state in states.items():
                 if state.id == id:
                     return render_template("9-states.html", states=state)
-        return render_template("9-states.html")
+        return render_template("9-states.html", states=None)
     else:
         cities = storage.all(City)
         states = storage.all(State)
