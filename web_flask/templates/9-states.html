@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+		{% if  states | length > 0 %}
+			{% if name_state | length > 0 %}
+				<H1>State: {{ name_state }}</H1>
+				<H3>Cities:</H3>
+				<UL>
+					{% set cities_list = states[0].cities %}
+					{% set sort_on = request.args.sort_on|default('name') %}
+					{% for city in cities_list|sort(attribute=sort_on) %}
+					<LI>{{ city.id  }}: <B>{{ city.name }}</B></LI>
+					{% endfor %}
+				</UL>
+			{% else %}
+				<H1>States</H1>
+				<UL>
+					{% for state in states %}
+						<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+					{% endfor %}
+			{% endif %}
+		{% else %}
+        	<H1>Not found!</H1>
+		{% endif %}
+
+    </BODY>
+</HTML>

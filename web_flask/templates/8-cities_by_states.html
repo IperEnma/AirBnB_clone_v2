@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>States</H1>
+        <UL>
+			{% for state in states %}
+			<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+				{% if cities %}
+                <UL>
+					{% for city in cities.values() %}
+						{% if city.state_id == state.id %}
+							<LI>{{ city.id  }}: <B>{{ city.name }}</B></LI>
+						{% else %}
+						{% endif %}
+					{% endfor %}
+                </UL>
+				{% else %}
+                <UL>
+					{% set cities_list = state.cities %}
+					{% set sort_on = request.args.sort_on|default('name') %}
+					{% for city in cities_list|sort(attribute=sort_on) %}
+						<LI>{{ city.id  }}: <B>{{ city.name }}</B></LI>
+					{% endfor %}
+                </UL>
+				{% endif %}
+			{% endfor %}
+			</LI>
+
+        </UL>
+    </BODY>
+</HTML>
+

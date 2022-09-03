@@ -10,18 +10,20 @@ from os import getenv
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state", cascade="all, delete")
 
-    if (getenv('HBNB_TYPE_STORAGE') != 'db'):
+    if (getenv('HBNB_TYPE_STORAGE') == 'db'):
+        __tablename__ = 'states'
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", backref="state", cascade="all, delete")
+
+    if (getenv('HBNB_TYPE_STORAGE') == 'fs'):
+        name = ''
         @property
         def cities(self):
             new_list = []
-            instance_city = models.storage.all[City]
+            instance_city = models.storage.all(City)
 
-            for key, value in instance_city:
+            for key, value in instance_city.items():
                 if self.id == value.state_id:
                     new_list.append(value)
             return new_list
-
