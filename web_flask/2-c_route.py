@@ -22,7 +22,7 @@ def hbnb():
 def c(var):
     """capture variable"""
     var = var.replace("_", " ")
-    return var
+    return "c " + var
 
 
 if __name__ == '__main__':
