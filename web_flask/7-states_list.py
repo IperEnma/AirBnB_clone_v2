@@ -13,11 +13,13 @@ app.url_map.strict_slashes = False
 
 @app.teardown_appcontext
 def close(exception):
+    """close session current"""
     storage.close()
 
 
 @app.route('/states_list')
 def states_list():
+    """send object state to template"""
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
         states = storage.all(State)
         states_list = []
@@ -26,5 +28,5 @@ def states_list():
         states_list.sort(key=lambda x: x.name)
         return render_template("7-states_list.html", states=states_list)
 
-
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
