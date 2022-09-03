@@ -4,7 +4,7 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-		{% if  states | length > 0 %}
+		{% if  states %}
 			{% if states is iterable %}
 				<H1>States</H1>
 				<UL>
@@ -13,13 +13,13 @@
 					{% endfor %}
 				<UL>
 			{% else %}
-				<H1>State: {{ name_state }}</H1>
+				<H1>State: {{ states.name }}</H1>
 				<H3>Cities:</H3>
 				<UL>
-					{% set cities_list = states[0].cities %}
+					{% set cities_list = states.cities %}
 					{% set sort_on = request.args.sort_on|default('name') %}
 					{% for city in cities_list|sort(attribute=sort_on) %}
-					<LI>{{ city.id  }}: <B>{{ city.name }}</B></LI>
+					<LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
 					{% endfor %}
 				</UL>
 			{% endif %}

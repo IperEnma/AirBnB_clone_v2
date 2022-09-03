@@ -27,15 +27,14 @@ def states(id=None):
         if id is not None:
             for key, state in states.items():
                 if state.id == id:
-                    return render_template("9-states.html", states=states)
+                    return render_template("9-states.html", states=state)
         else:
             for key, state in states.items():
                 states_list.append(state)
             states_list.sort(key=lambda x: x.name)
         return render_template(
                 "9-states.html",
-                states=states_list,
-                name_state=name_state)
+                states=states_list)
     else:
         cities = storage.all(City)
         states = storage.all(State)
