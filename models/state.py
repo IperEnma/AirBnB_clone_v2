@@ -18,6 +18,7 @@ class State(BaseModel, Base):
 
     if (getenv('HBNB_TYPE_STORAGE') == 'fs'):
         name = ''
+
         @property
         def cities(self):
             new_list = []

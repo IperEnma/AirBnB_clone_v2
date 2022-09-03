@@ -48,7 +48,13 @@ class DBStorage:
                 key = type(cls).__name__ + obj.id
                 new_dict[key] = obj
         else:
-            for _cls in ['State', 'City', 'User', 'Place', 'Review', 'Amenity']:
+            for _cls in [
+                    'State',
+                    'City',
+                    'User',
+                    'Place',
+                    'Review',
+                    'Amenity']:
                 objs = self.__session.query(eval(_cls)).all()
                 for obj in objs:
                     key = _cls + "." + obj.id
@@ -67,12 +73,15 @@ class DBStorage:
         """delete from te current session"""
         if (obj is not None):
             self.__session.query(obj.__class__).filter(
-                    obj.__class__.id == obj.id).delete(synchronize_session="fetch")
+                    obj.__class__.id == obj.id).delete(
+                            synchronize_session="fetch")
 
     def reload(self):
         """create all tables in db"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+                bind=self.__engine,
+                expire_on_commit=False)
         session_reg = scoped_session(session_factory)
         self.__session = session_reg()
 
