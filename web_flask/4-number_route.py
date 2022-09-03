@@ -33,7 +33,7 @@ def python(text):
     return "Python {}".format(text)
 
 
-@appd.route('/number', strict_slashes=False)
+@app.route('/number', strict_slashes=False)
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
     """is number or not"""
