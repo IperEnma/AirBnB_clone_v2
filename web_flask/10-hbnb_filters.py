@@ -14,6 +14,7 @@ app.url_map.strict_slashes = False
 def close(exception):
     storage.close()
 
+
 @app.route('/hbnb_filters')
 def states():
     if (getenv('HBNB_TYPE_STORAGE') == 'db'):
@@ -22,6 +23,7 @@ def states():
         for key, state in states.items():
             states_list.append(state)
         states_list.sort(key=lambda x: x.name)
-        return render_template("10-hbnb_filters.html", states = states_list)
+        return render_template("10-hbnb_filters.html", states=states_list)
+
 
 app.run(host='0.0.0.0', port=5000)
